@@ -30,6 +30,7 @@ private:
 	board m_board;
 	HBRUSH m_field_brush;
 	POINT m_screen_size;
+	std::wstring m_window_title;
 
 	static constexpr UINT_PTR s_timer = 1;
 	std::chrono::time_point<std::chrono::system_clock> m_startTime;
