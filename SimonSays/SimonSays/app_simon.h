@@ -36,6 +36,7 @@ private:
 	void on_timer();
 	void on_command(WORD cmdID);
 	void on_paint(HWND window);
+	void on_resize(HWND window, UINT w, UINT h);
 
 public:
 	app_simon(HINSTANCE instance, int N);

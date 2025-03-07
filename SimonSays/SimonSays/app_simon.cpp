@@ -96,8 +96,14 @@ LRESULT app_simon::window_proc(
 	HWND window, UINT message,
 	WPARAM wparam, LPARAM lparam)
 {
+	UINT width, height;
 	switch (message) 
 	{
+		case WM_SIZE:
+			width = LOWORD(lparam);
+			height = HIWORD(lparam);
+			on_resize(window, width, height);
+			return 0;
 		case WM_PAINT:
 			on_paint(window);
 			return 0;
@@ -249,4 +255,9 @@ void app_simon::on_paint(HWND window)
 	SelectObject(dc, oldBrush);
 	SelectObject(dc, oldPen);
 	EndPaint(window, &ps);
+}
+
+void app_simon::on_resize(HWND window, UINT w, UINT h)
+{
+	return;
 }
