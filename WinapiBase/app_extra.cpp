@@ -70,3 +70,10 @@ void App::on_resize(HWND window, UINT w, UINT h)
 {
 	return;
 }
+
+void App::on_mouse_move(HWND window) // cursed code
+{
+	//POINT p { .x = 100, .y = 100};
+	//ClientToScreen(window, &p);
+	//SetCursorPos(p.x, p.y);
+}

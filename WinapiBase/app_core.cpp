@@ -76,6 +76,9 @@ LRESULT App::window_proc(HWND window, UINT message, WPARAM wparam, LPARAM lparam
 	UINT width, height;
 	switch (message) 
 	{
+		case WM_MOUSEMOVE:
+			on_mouse_move(window);
+			return 0;
 		case WM_SIZE:
 			width = LOWORD(lparam);
 			height = HIWORD(lparam);

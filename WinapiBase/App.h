@@ -35,6 +35,7 @@ private:
 	void on_command(WORD cmdID);
 	void on_paint(HWND window);
 	void on_resize(HWND window, UINT w, UINT h);
+	void on_mouse_move(HWND window);
 
 	// Members
 	HINSTANCE m_instance;
