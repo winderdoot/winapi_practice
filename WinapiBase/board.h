@@ -1,26 +1,30 @@
 #pragma once
 #include <vector>
 #include <windows.h>
-struct field
+
+struct field 
 {
 	RECT position;
+	COLORREF color;
 };
 
-class board
+class Board 
 {
 public:
+	using field_array = std::vector<field>;
+
+	static constexpr LONG margin = 5;
+	static constexpr LONG field_size = 90;
 	LONG columns;
 	LONG rows;
-	//static constexpr LONG columns = 4;
-	//static constexpr LONG rows = 4;
-	static constexpr LONG margin = 5;
 	LONG field_count;
-	static constexpr LONG field_size = 90;
 	LONG width;
 	LONG height;
-	using field_array = std::vector<field>;
-	board(int columns, int rows);
+
+	Board(int columns = 5, int rows = 5);
 	field_array const& fields() const { return m_fields; }
+	void set_colour(int i, COLORREF col);
+
 private:
 	field_array m_fields;
 };

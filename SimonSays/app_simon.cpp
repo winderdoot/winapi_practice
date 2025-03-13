@@ -41,7 +41,7 @@ HWND app_simon::create_window(DWORD style, HWND parent,
 	AdjustWindowRectEx(&size, style, true, 0);
 
 	HWND window = CreateWindowExW(ex_style,
-		s_class_name.c_str(), L"2048", style,
+		s_class_name.c_str(), m_window_title.c_str(), style,
 		CW_USEDEFAULT, 0,
 		size.right - size.left, size.bottom - size.top,
 		parent, nullptr, m_instance, this);
@@ -113,8 +113,8 @@ LRESULT app_simon::window_proc(
 		case WM_TIMER:
 			on_timer();
 			return 0;
-		case WM_CTLCOLORSTATIC:
-			return reinterpret_cast<INT_PTR>(m_field_brush);
+		//case WM_CTLCOLORSTATIC:
+		//	return reinterpret_cast<INT_PTR>(m_field_brush);
 		case WM_WINDOWPOSCHANGED:
 			on_window_move(window,
 				reinterpret_cast<LPWINDOWPOS>(lparam));
