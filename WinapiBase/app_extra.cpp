@@ -35,6 +35,7 @@ void App::on_timer(HWND window)
 	m_board.set_colour(ind, col);
 	InvalidateRect(window, NULL, false);
 	on_paint(window);
+	
 }
 
 void App::on_command(WORD cmdID) 

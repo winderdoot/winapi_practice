@@ -42,6 +42,7 @@ private:
 	Board m_board;
 	HBRUSH m_field_brush;
 	POINT m_screen_size;
+	
 	std::wstring m_window_title;
 
 	static constexpr UINT_PTR s_timer = 1;
