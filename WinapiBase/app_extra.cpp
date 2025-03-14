@@ -30,12 +30,11 @@ void App::update_transparency()
 
 void App::on_timer(HWND window)
 {
-	int ind = rand() % m_board.field_count;
-	COLORREF col = RGB(rand() % 256, rand() % 256, rand() % 256);
-	m_board.set_colour(ind, col);
-	InvalidateRect(window, NULL, false);
-	on_paint(window);
-	
+	//int ind = rand() % m_board.field_count;
+	//COLORREF col = RGB(rand() % 256, rand() % 256, rand() % 256);
+	//m_board.set_colour(ind, col);
+	//InvalidateRect(window, NULL, false);
+	//on_paint(window);
 }
 
 void App::on_command(WORD cmdID) 
@@ -76,4 +75,25 @@ void App::on_mouse_move(HWND window) // cursed code
 	//POINT p { .x = 100, .y = 100};
 	//ClientToScreen(window, &p);
 	//SetCursorPos(p.x, p.y);
+}
+
+void App::on_char(HWND window, WPARAM wparam, LPARAM lparam)
+{
+
+	if (wparam == L'C')
+	{
+		int ind = rand() % m_board.field_count;
+		COLORREF col = RGB(rand() % 256, rand() % 256, rand() % 256);
+		m_board.set_colour(ind, col);
+		InvalidateRect(window, NULL, false);
+		on_paint(window);
+	}
+}
+
+void App::on_mouse_click(HWND window, WPARAM wparam, LPARAM lparam)
+{
+	int tileInd = m_board.get_tile_index(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+	m_board.set_colour(tileInd, RGB(rand() % 256, rand() % 256, rand() % 256));
+	InvalidateRect(window, NULL, false);
+	on_paint(window);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <windowsx.h>
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -36,6 +37,8 @@ private:
 	void on_paint(HWND window);
 	void on_resize(HWND window, UINT w, UINT h);
 	void on_mouse_move(HWND window);
+	void on_char(HWND window, WPARAM wparam, LPARAM lparam);
+	void on_mouse_click(HWND window, WPARAM wparam, LPARAM lparam);
 
 	// Members
 	HINSTANCE m_instance;

@@ -24,6 +24,7 @@ public:
 	Board(int columns = 5, int rows = 5);
 	field_array const& fields() const { return m_fields; }
 	void set_colour(int i, COLORREF col);
+	int get_tile_index(LONG x, LONG y); // Client area coords
 
 private:
 	field_array m_fields;

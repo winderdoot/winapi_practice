@@ -31,3 +31,12 @@ void Board::set_colour(int i, COLORREF col)
 		return;
 	m_fields[i].color = col;
 }
+
+int Board::get_tile_index(LONG x, LONG y)
+{
+	LONG len = margin + field_size;
+	LONG xind = x / len;
+	LONG yind = y / len;
+	int index = xind + yind * columns;
+	return index;
+}
