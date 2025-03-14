@@ -41,8 +41,25 @@ void App::update_transparency()
 	SetLayeredWindowAttributes(m_main, 0, a, LWA_ALPHA);
 }
 
+void App::enemy_move()
+{
+	LONG newX = m_enemy_pos.x;
+	if (m_enemy_moving_right)
+	{
+		newX = newX + m_enemy_step;
+		if (newX > m_enemy_def_pos.x + m_enemy_off_max)
+		{
+			newX = m_enemy_def_pos.x + m_enemy_off_max;
+			m_enemy_moving_right = false;
+			
+			
+		}
+	}
+}
+
 void App::on_timer(HWND window)
 {
+
 	//center_window(window);
 }
 

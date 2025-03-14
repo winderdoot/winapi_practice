@@ -5,6 +5,9 @@ std::wstring const App::s_class_name { L"Space Invaders - WINAPI" };
 LONG const App::m_width = 800;
 LONG const App::m_height = 600;
 POINT const App::m_enemy_size { 50, 40 };
+POINT const App::m_enemy_def_pos{ (m_width - m_enemy_size.x) / 2, (m_height - m_enemy_size.y) / 4 };
+LONG const App::m_enemy_off_max{ 25 };
+LONG const App::m_enemy_step{ 5 };
 
 
 bool App::register_class() 
@@ -127,10 +130,10 @@ LRESULT App::window_proc(HWND window, UINT message, WPARAM wparam, LPARAM lparam
 App::App(HINSTANCE instance)
 	: m_instance{ instance }, m_main{}, m_enemy{}, m_enemy_brush{ CreateSolidBrush(ENEMY_COLOR) },
 	m_screen_size { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) }, m_window_title {L"New App"},
-	m_has_focus { true }, m_enemy_pos {}
+	m_has_focus{ true }, m_enemy_pos{}, m_enemy_moving_right { true }
 {
-	m_enemy_pos.x = (m_width - m_enemy_size.x) / 2;
-	m_enemy_pos.y = (m_height - m_enemy_size.y) / 4;
+	m_enemy_pos.x = m_enemy_def_pos.x;
+	m_enemy_pos.y = m_enemy_def_pos.y;
 
 	srand((unsigned)time(nullptr));
 	register_class();
@@ -159,7 +162,7 @@ int App::run(int show_command)
 	SetWindowPos(m_main, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 	ShowWindow(m_main, show_command);
 	ShowWindow(m_enemy, show_command);
-	SetTimer(m_main, s_timer, 1000, nullptr);
+	SetTimer(m_main, s_timer, 50, nullptr);
 	MSG msg {};
 	BOOL result = TRUE;
 	HACCEL shortcuts = LoadAcceleratorsW(m_instance, MAKEINTRESOURCEW(ID_SHORTCUTS));
