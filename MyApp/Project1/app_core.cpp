@@ -4,10 +4,14 @@
 std::wstring const App::s_class_name { L"Space Invaders - WINAPI" };
 LONG const App::m_width = 800;
 LONG const App::m_height = 600;
+
 POINT const App::m_enemy_size { 50, 40 };
 POINT const App::m_enemy_def_pos{ (m_width - m_enemy_size.x) / 2, (m_height - m_enemy_size.y) / 4 };
 LONG const App::m_enemy_off_max{ 25 };
 LONG const App::m_enemy_step{ 5 };
+
+POINT const App::m_player_size{ 50, 50 };
+POINT const App::m_player_def_pos{ (m_width - m_enemy_size.x) / 2 , 3 * (m_height - m_enemy_size.y) / 4 };
 
 
 bool App::register_class() 
@@ -113,8 +117,9 @@ LRESULT App::window_proc(HWND window, UINT message, WPARAM wparam, LPARAM lparam
 			m_has_focus = false;
 			update_transparency();
 			break;
-		case WM_CTLCOLORSTATIC:
-			return reinterpret_cast<INT_PTR>(m_enemy_brush);
+		//case WM_CTLCOLORSTATIC:
+		//	return on_colorstatic(window);
+			
 		case WM_CLOSE:
 			DestroyWindow(window);
 			return 0;
@@ -128,30 +133,48 @@ LRESULT App::window_proc(HWND window, UINT message, WPARAM wparam, LPARAM lparam
 
 // Constructor
 App::App(HINSTANCE instance)
-	: m_instance{ instance }, m_main{}, m_enemy{}, m_enemy_brush{ CreateSolidBrush(ENEMY_COLOR) },
-	m_screen_size { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) }, m_window_title {L"New App"},
-	m_has_focus{ true }, m_enemy_pos{}, m_enemy_moving_right { true }
+	: m_instance{ instance }, m_main{},
+	m_screen_size { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) },
+	m_has_focus{ true }, m_enemy_moving_right{ true }, m_player{ }, m_enemy{ }, m_window_title{ L"New App" }
 {
-	m_enemy_pos.x = m_enemy_def_pos.x;
-	m_enemy_pos.y = m_enemy_def_pos.y;
+	//m_enemy.brush = CreateSolidBrush(ENEMY_COLOR);
+	//m_enemy.pos.x = m_enemy_def_pos.x;
+	//m_enemy.pos.y = m_enemy_def_pos.y;
+
+	//m_player.brush = CreateSolidBrush(PLAYER_COLOR);
+	//m_player.pos.x = m_player_def_pos.x;
+	//m_player.pos.y = m_player_def_pos.y;
 
 	srand((unsigned)time(nullptr));
 	register_class();
 	DWORD main_style = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX;
 	m_main = create_window(main_style, nullptr, WS_EX_LAYERED);
-	m_enemy	= CreateWindowExW(
-		0,
-		L"STATIC",
-		nullptr,
-		WS_CHILD | WS_VISIBLE | SS_CENTER,
-		m_enemy_pos.x,
-		m_enemy_pos.y,
-		m_enemy_size.x,
-		m_enemy_size.y,
-		m_main,
-		nullptr,
-		m_instance,
-		nullptr);
+	//m_enemy.window	= CreateWindowExW(
+	//	0,
+	//	L"STATIC",
+	//	nullptr,
+	//	WS_CHILD | WS_VISIBLE | SS_CENTER,
+	//	m_player.pos.x,
+	//	m_player.pos.y,
+	//	m_enemy_size.x,
+	//	m_enemy_size.y,
+	//	m_main,
+	//	nullptr,
+	//	m_instance,
+	//	nullptr);
+	//m_player.window = CreateWindowExW(
+	//	0,
+	//	L"STATIC",
+	//	nullptr,
+	//	WS_CHILD | WS_VISIBLE | SS_CENTER,
+	//	m_player.pos.x,
+	//	m_player.pos.y,
+	//	m_enemy_size.x,
+	//	m_enemy_size.y,
+	//	m_main,
+	//	nullptr,
+	//	m_instance,
+	//	nullptr);
 	SetLayeredWindowAttributes(m_main, 0, 255, LWA_ALPHA);
 }
 
@@ -160,8 +183,8 @@ int App::run(int show_command)
 {
 	center_window(m_main);
 	SetWindowPos(m_main, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-	ShowWindow(m_main, show_command);
-	ShowWindow(m_enemy, show_command);
+	//ShowWindow(m_enemy.window, show_command);
+	//ShowWindow(m_player.window, show_command);
 	SetTimer(m_main, s_timer, 50, nullptr);
 	MSG msg {};
 	BOOL result = TRUE;

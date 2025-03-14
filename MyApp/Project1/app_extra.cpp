@@ -43,18 +43,32 @@ void App::update_transparency()
 
 void App::enemy_move()
 {
-	LONG newX = m_enemy_pos.x;
-	if (m_enemy_moving_right)
+	//LONG newX = m_enemy_pos.x;
+	//if (m_enemy_moving_right)
+	//{
+	//	newX = newX + m_enemy_step;
+	//	if (newX > m_enemy_def_pos.x + m_enemy_off_max)
+	//	{
+	//		newX = m_enemy_def_pos.x + m_enemy_off_max;
+	//		m_enemy_moving_right = false;
+	//		
+	//		
+	//	}
+	//}
+}
+
+INT_PTR App::on_colorstatic(HWND window)
+{
+
+	if (window == m_player.window)
 	{
-		newX = newX + m_enemy_step;
-		if (newX > m_enemy_def_pos.x + m_enemy_off_max)
-		{
-			newX = m_enemy_def_pos.x + m_enemy_off_max;
-			m_enemy_moving_right = false;
-			
-			
-		}
+		return reinterpret_cast<INT_PTR>(m_player.brush);
 	}
+	else if (window == m_enemy.window)
+	{
+		return reinterpret_cast<INT_PTR>(m_enemy.brush);
+	}
+	return reinterpret_cast<INT_PTR>(m_enemy.brush); // Doesn't matter
 }
 
 void App::on_timer(HWND window)

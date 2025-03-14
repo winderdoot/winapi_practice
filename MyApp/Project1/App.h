@@ -16,9 +16,17 @@
 #define __DEF_COLORS
 
 #define BACKGROUND_COLOR RGB(255, 255, 255)
-#define ENEMY_COLOR 0x2d60ed
+#define ENEMY_COLOR RGB(20, 95, 248)
+#define PLAYER_COLOR RGB(236, 35, 45)
 
 #endif
+
+struct agent_t
+{
+	HWND window;
+	HBRUSH brush;
+	POINT pos;
+};
 
 class App 
 {
@@ -42,24 +50,28 @@ private:
 	void on_char(HWND window, WPARAM wparam, LPARAM lparam);
 	void on_mouse_click(HWND window, WPARAM wparam, LPARAM lparam);
 	void enemy_move();
+	INT_PTR on_colorstatic(HWND window);
 
 	// CONSTANTS
 	static LONG const m_width, m_height;
+
 	static POINT const m_enemy_size;
 	static POINT const m_enemy_def_pos;
 	static LONG const m_enemy_off_max;
 	static LONG const m_enemy_step;
 
+	static POINT const m_player_size;
+	static POINT const m_player_def_pos;
+	//static LONG const m_enemy_off_max;
+	//static LONG const m_enemy_step;
+
 	// Members
 	HINSTANCE m_instance;
-	HWND m_main, m_enemy;
-	//Board m_board;
-	HBRUSH m_enemy_brush;
+	HWND m_main;
 	POINT m_screen_size;
 	bool m_has_focus;
-	POINT m_enemy_pos;
 	bool m_enemy_moving_right;
-	LONG m_enemy_offset;
+	agent_t m_player, m_enemy;
 	
 	std::wstring m_window_title;
 
